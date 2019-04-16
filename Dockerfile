@@ -2,8 +2,7 @@
 # Based on a work at https://github.com/docker/docker.
 # ------------------------------------------------------------------------------
 # Pull base image.
-FROM tutum/ubuntu:trusty
-MAINTAINER Agung Firdaus <agung@jagad.co.id>
+FROM ubuntu:latest
 
 # ------------------------------------------------------------------------------
 # Install dependencies
@@ -16,6 +15,7 @@ RUN apt-get -y install nodejs
 
 # ------------------------------------------------------------------------------
 # Get cloud9 source and install
+ADD https://api.github.com/repos/c9/core/git/refs/heads/master version.json
 RUN git clone https://github.com/c9/core.git /tmp/c9
 RUN cd /tmp/c9 && scripts/install-sdk.sh
 RUN mv /tmp/c9 /cloud9
