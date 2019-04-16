@@ -6,15 +6,16 @@ FROM ubuntu:latest
 
 # ------------------------------------------------------------------------------
 # Install dependencies
-RUN apt-get update && apt-get -y install git curl build-essential supervisor
+RUN apt-get update && apt-get -y install git curl build-essential supervisor locales
 
 # ------------------------------------------------------------------------------
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get -y install nodejs
 
 # ------------------------------------------------------------------------------
 # Get cloud9 source and install
+RUN locale-gen en_US.UTF-8
 ADD https://api.github.com/repos/c9/core/git/refs/heads/master version.json
 RUN git clone https://github.com/c9/core.git /tmp/c9
 RUN cd /tmp/c9 && scripts/install-sdk.sh
